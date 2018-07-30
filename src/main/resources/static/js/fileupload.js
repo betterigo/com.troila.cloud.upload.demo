@@ -113,7 +113,7 @@ function UploadFile(){
                         if(beforeUpload){
                             beforePrepare(data);
                         }
-                        createUploadTask(200);
+                        createUploadTask(data.interval);
                     }
                 },
                 error:function(res){
@@ -176,7 +176,6 @@ function UploadFile(){
      * @param {*} index 
      */
     function uploadPart(start,end,index){
-        writeLog("index:"+index);
         var chunk = file.slice(start, end);//切割文件
         var formData = new FormData();
         formData.append("file", chunk, file.name);
@@ -292,7 +291,7 @@ function UploadFile(){
                     if(beforeUpload){
                         beforePrepare(data);
                     }
-                    createContinueUploadTask(200);
+                    createContinueUploadTask(data.interval);
                 }
             }
         })
