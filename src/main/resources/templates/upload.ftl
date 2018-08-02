@@ -10,8 +10,16 @@
 <body>
 	<p>
 		<a>token</a><input type="text" id="token">
-		<button id="login" onClick="login()">登录</button>
+		<button id="login" onClick="loginByToken()">登录</button>
 	</p>
+	<br />
+	<div>
+		<p><a>用户名：</a><input id="username" type="text" placeholder="用户名"/></p>
+		<p><a>密&nbsp&nbsp&nbsp码：</a><input id="password" type="password" placeholder="密码"/></p>
+		<button type="button" id="loginsubmit" value="登陆" onClick="login()">登陆</button>
+		<div id="login_status" style="display:inline"><a style="color: #ff9900">用户未登录</a></div>
+	</div>
+	<br>
 	<input type="file" name="file" id="file">
 	<button id="upload" onClick="upload()">上传</button>
 	<button id="pause" onClick="pause()">暂停</button>
@@ -115,7 +123,7 @@
 		function continueUpload(){
 			uploadObj.continueUpload();
 		}
-		function login(){
+		function loginByToken(){
 			var formData = {
 					token:$("#token").val()
 			}
@@ -132,6 +140,32 @@
 		           		console.log(res);
 		           	}
 		        })  
+		}
+		
+		function login(){
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var data = {
+					username:username,
+					password:password
+			}
+			$.ajax({
+				url : "http://localhost:8089/login",
+				data : data,
+				type : 'POST',
+				cache : false,
+				crossDomain : true,
+				xhrFields:{
+					withCredentials:true
+				},
+				success:function(data){
+					$("#login_status").html('<a style="color: #336600">用户已登录：'+data+'</a>');
+				},
+				error:function(res){
+					console.log(res)
+					$("#login_status").html('<a style="color:#B22222">用户名或密码错误</a>');
+				}
+			});
 		}
 	</script>
 </body>
