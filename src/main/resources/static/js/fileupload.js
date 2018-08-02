@@ -52,7 +52,7 @@ function UploadFile(){
         LOG = params.log;
         return self;
     }
-
+    
     /**
      * 开始上传
      */
@@ -93,8 +93,15 @@ function UploadFile(){
                 url:prepareUrl,
                 data:JSON.stringify(prepareData),
                 type:"POST",
+                cache : false,
+                crossDomain: true,
                 contentType:"application/json",
+                dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                 },
                 success:function(data){
+                	uploadFile.uploadId = data.uploadId;
                     writeLog("文件"+uploadFile.name+"已经准备好上传，上传id为:"+data.uploadId);
                     if(data.bingo){
                         progressInfo.percent = 1;
@@ -109,7 +116,6 @@ function UploadFile(){
                         }
                         return;
                     }else{
-                        uploadFile.uploadId = data.uploadId;
                         if(beforeUpload){
                             beforePrepare(data);
                         }
@@ -187,8 +193,12 @@ function UploadFile(){
             type : 'POST',
             cache : false,
             data : formData,
-            processData : false,
-            contentType : false,
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+             },
+           processData : false,
+           contentType : false,
         }).done(function(res) {
             writeLog(res);
             progressInfo.speed = res.speed;
@@ -231,6 +241,9 @@ function UploadFile(){
             url:pauseUrl+'?uploadId='+uploadFile.uploadId,
             // data:JSON.stringify(data),
             type:"POST",
+            xhrFields: {
+                withCredentials: true
+             },
             contentType:"application/json",
             success:function(res){
                 clearInterval(uploadTaskId);
@@ -267,6 +280,9 @@ function UploadFile(){
             url:prepareUrl,
             data:JSON.stringify(prepareData),
             type:"POST",
+            xhrFields: {
+                withCredentials: true
+             },
             contentType:"application/json",
             success:function(data){
                  //创建一个定时任务

@@ -8,6 +8,10 @@
 <script type="text/javascript" src="/js/fileupload.js"></script>
 </head>
 <body>
+	<p>
+		<a>token</a><input type="text" id="token">
+		<button id="login" onClick="login()">登录</button>
+	</p>
 	<input type="file" name="file" id="file">
 	<button id="upload" onClick="upload()">上传</button>
 	<button id="pause" onClick="pause()">暂停</button>
@@ -70,7 +74,7 @@
 		function upload(){			
 			var blob = document.getElementById("file").files[0];
 			uploadObj.initUpload({
-				uploadUrl:'http://172.26.106.65:8089/file',
+				uploadUrl:'http://localhost:8089/file',
 				file:blob,
 				beforePrepare:function(file){
 					$("#TotalSize").text(file.size);
@@ -110,6 +114,24 @@
 		}
 		function continueUpload(){
 			uploadObj.continueUpload();
+		}
+		function login(){
+			var formData = {
+					token:$("#token").val()
+			}
+ 		  $.ajax({
+		            url : "http://localhost:8089/login",
+		            type : 'POST',
+		            cache : false,
+		            data : formData,
+		            crossDomain: true,
+		            xhrFields: {
+		                withCredentials: true
+		             },
+		           	success:function(res){
+		           		console.log(res);
+		           	}
+		        })  
 		}
 	</script>
 </body>
