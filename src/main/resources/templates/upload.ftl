@@ -19,7 +19,7 @@
 		<button type="button" id="loginsubmit" value="登陆" onClick="login()">登陆</button>
 		<div id="login_status" style="display:inline"><a style="color: #ff9900">用户未登录</a></div>
 	</div>
-	<br>
+	<hr>
 	<input type="file" name="file" id="file">
 	<button id="upload" onClick="upload()">上传</button>
 	<button id="pause" onClick="pause()">暂停</button>
@@ -76,6 +76,10 @@
 				</td>
 			</tr>
 		</table>
+		<hr>
+		<p>
+			<a>文件操作</a>
+		</p>
 	</div>
 	<script type="text/javascript">
 		var uploadObj = new UploadFile();
