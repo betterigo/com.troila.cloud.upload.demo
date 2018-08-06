@@ -117,7 +117,7 @@ function UploadFile(){
                         return;
                     }else{
                         if(beforeUpload){
-                            beforePrepare(data);
+                        	beforeUpload(data);
                         }
                         createUploadTask(data.interval);
                     }
@@ -305,7 +305,7 @@ function UploadFile(){
                     leftParts = data.needUploadParts;
                     writeLog(leftParts);
                     if(beforeUpload){
-                        beforePrepare(data);
+                    	beforeUpload(data);
                     }
                     createContinueUploadTask(data.interval);
                 }
