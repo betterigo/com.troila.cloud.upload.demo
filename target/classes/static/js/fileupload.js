@@ -34,6 +34,7 @@ function UploadFile(){
     var leftParts;
     //上传定时任务id
     var uploadTaskId;
+    var accessKey;
     /**
      * 初始化文件上传对象
      * @param {uploadUrl,file,beforePrepare,afterPrepare,beforeUpload,afterUpload,progressListener,failback,log} params 
@@ -49,6 +50,7 @@ function UploadFile(){
         afterUpload = params.afterUpload;
         progressListener = params.progressListener;
         failcallback = params.failcallback;
+        accessKey = params.accessKey;
         LOG = params.log;
         return self;
     }
@@ -94,12 +96,15 @@ function UploadFile(){
                 data:JSON.stringify(prepareData),
                 type:"POST",
                 cache : false,
-                crossDomain: true,
+//                crossDomain: true,
+                beforeSend: function(request) {
+                    request.setRequestHeader("access_key", accessKey);
+                },
                 contentType:"application/json",
                 dataType: 'json',
-                xhrFields: {
-                    withCredentials: true
-                 },
+//                xhrFields: {
+//                    withCredentials: true
+//                 },
                 success:function(data){
                 	uploadFile.uploadId = data.uploadId;
                     writeLog("文件"+uploadFile.name+"已经准备好上传，上传id为:"+data.uploadId);
@@ -193,10 +198,13 @@ function UploadFile(){
             type : 'POST',
             cache : false,
             data : formData,
-            crossDomain: true,
-            xhrFields: {
-                withCredentials: true
-             },
+//             beforeSend: function(request) {
+//            xhrFields: {
+//                withCredentials: true
+//             },
+            beforeSend: function(request) {
+                request.setRequestHeader("access_key", accessKey);
+            },
            processData : false,
            contentType : false,
         }).done(function(res) {
@@ -241,9 +249,12 @@ function UploadFile(){
             url:pauseUrl+'?uploadId='+uploadFile.uploadId,
             // data:JSON.stringify(data),
             type:"POST",
-            xhrFields: {
-                withCredentials: true
-             },
+            beforeSend: function(request) {
+                request.setRequestHeader("access_key", accessKey);
+            },
+//            xhrFields: {
+//                withCredentials: true
+//             },
             contentType:"application/json",
             success:function(res){
                 clearInterval(uploadTaskId);
@@ -280,9 +291,12 @@ function UploadFile(){
             url:prepareUrl,
             data:JSON.stringify(prepareData),
             type:"POST",
-            xhrFields: {
-                withCredentials: true
-             },
+            beforeSend: function(request) {
+                request.setRequestHeader("access_key", accessKey);
+            },
+//            xhrFields: {
+//                withCredentials: true
+//             },
             contentType:"application/json",
             success:function(data){
                  //创建一个定时任务

@@ -12,4 +12,8 @@ public class DemoController {
 	public String uploadPage() {
 		return "upload";
 	}
+	@GetMapping("/16")
+	public String upload16Page() {
+		return "upload16";
+	}
 }

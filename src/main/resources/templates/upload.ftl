@@ -79,13 +79,16 @@
 		<hr>
 		<p>
 			<a>文件操作</a>
+			
 		</p>
 	</div>
 	<script type="text/javascript">
 		var uploadObj = new UploadFile();
+		var accessKey="";
 		function upload(){			
 			var blob = document.getElementById("file").files[0];
 			uploadObj.initUpload({
+				accessKey:accessKey,
 				uploadUrl:'http://localhost:8089/file',
 				file:blob,
 				beforePrepare:function(file){
@@ -136,10 +139,10 @@
 		            type : 'POST',
 		            cache : false,
 		            data : formData,
-		            crossDomain: true,
+		           /*  crossDomain: true,
 		            xhrFields: {
 		                withCredentials: true
-		             },
+		             }, */
 		           	success:function(res){
 		           		console.log(res);
 		           	}
@@ -158,12 +161,13 @@
 				data : data,
 				type : 'POST',
 				cache : false,
-				crossDomain : true,
+				/* crossDomain : true,
 				xhrFields:{
 					withCredentials:true
-				},
+				}, */
 				success:function(data){
 					$("#login_status").html('<a style="color: #336600">用户已登录：'+data+'</a>');
+					accessKey = data;
 				},
 				error:function(res){
 					console.log(res)
