@@ -94,6 +94,7 @@
 				beforePrepare:function(file){
 					$("#TotalSize").text(file.size);
 					$("#ProState").html('<a style="color: #ff9900">准备上传</a>');
+					console.log("准备上传之前")
 					
 				},
 				afterPrepare:function(data){
