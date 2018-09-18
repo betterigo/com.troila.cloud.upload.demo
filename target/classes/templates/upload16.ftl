@@ -59,7 +59,7 @@
 						<tr>
 							<td>平均速率:</td>
 							<td id="TransferRate" />
-							<td>(KB/秒)</td>
+							<td>(字节/秒)</td>
 						</tr>
 						<tr>
 							<td>使用时间:</td>
@@ -84,14 +84,17 @@
 	</div>
 	<script type="text/javascript">
 		var uploadObj = new UploadFile();
+		var accessKey="";
 		function upload(){			
 			var blob = document.getElementById("file").files[0];
 			uploadObj.initUpload({
-				uploadUrl:'http://172.27.107.16:8089/file',
+				accessKey:accessKey,
+				uploadUrl:'http://172.27.109.49:1111/v1/fileservice/file',
 				file:blob,
 				beforePrepare:function(file){
 					$("#TotalSize").text(file.size);
 					$("#ProState").html('<a style="color: #ff9900">准备上传</a>');
+					console.log("准备上传之前")
 					
 				},
 				afterPrepare:function(data){
@@ -133,14 +136,14 @@
 					token:$("#token").val()
 			}
  		  $.ajax({
-		            url : "http://172.27.107.16:8089/login",
+		            url : "http://172.27.109.119:8089/login",
 		            type : 'POST',
 		            cache : false,
 		            data : formData,
-		            crossDomain: true,
+		           /*  crossDomain: true,
 		            xhrFields: {
 		                withCredentials: true
-		             },
+		             }, */
 		           	success:function(res){
 		           		console.log(res);
 		           	}
@@ -155,16 +158,17 @@
 					password:password
 			}
 			$.ajax({
-				url : "http://172.27.107.16:8089/login",
+				url : "http://172.27.109.49:1111/v1/fileservice/login",
 				data : data,
 				type : 'POST',
 				cache : false,
-				crossDomain : true,
+				/* crossDomain : true,
 				xhrFields:{
 					withCredentials:true
-				},
+				}, */
 				success:function(data){
 					$("#login_status").html('<a style="color: #336600">用户已登录：'+data+'</a>');
+					accessKey = data;
 				},
 				error:function(res){
 					console.log(res)
