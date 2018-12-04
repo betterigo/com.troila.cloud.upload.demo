@@ -16,4 +16,9 @@ public class DemoController {
 	public String upload16Page() {
 		return "upload16";
 	}
+	
+	@GetMapping("/web")
+	public String uploadWebPage() {
+		return "webuploader";
+	}
 }

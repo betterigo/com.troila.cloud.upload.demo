@@ -87,6 +87,7 @@ function UploadFile(){
                 originalFileName:filename,
                 size:filesize,
                 md5:md5,
+//                folderId:30,
 //                folderId:25,
                 totalPart:totalPieces,
                 partSize:bytesPerPiece

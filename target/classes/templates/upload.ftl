@@ -89,7 +89,7 @@
 			var blob = document.getElementById("file").files[0];
 			uploadObj.initUpload({
 				accessKey:accessKey,
-				uploadUrl:'http://localhost:1111/v1/fileservice/file',
+				uploadUrl:'http://172.26.106.65:1111/v1/fileservice/file',
 				file:blob,
 				beforePrepare:function(file){
 					$("#TotalSize").text(file.size);
@@ -136,7 +136,7 @@
 					token:$("#token").val()
 			}
  		  $.ajax({
-		            url : "http://localhost:1111/v1/fileservice/login",
+		            url : "http://172.26.106.65:1111/v1/fileservice/login",
 		            type : 'POST',
 		            cache : false,
 		            data : formData,
@@ -158,7 +158,7 @@
 					password:password
 			}
 			$.ajax({
-				url : "http://localhost:1111/v1/fileservice/login",
+				url : "http://172.26.106.65:1111/v1/fileservice/login",
 				data : data,
 				type : 'POST',
 				cache : false,
